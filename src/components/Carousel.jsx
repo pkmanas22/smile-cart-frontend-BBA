@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import classNames from "classnames";
 import { Left, Right } from "neetoicons";
@@ -7,18 +7,27 @@ import { Button } from "neetoui";
 const Carousel = ({ imageUrls, title }) => {
   const [currentImagePosition, setCurrentImagePosition] = useState(0);
 
-  const handlePrevious = () =>
+  const timerRef = useRef(null);
+
+  const handlePrevious = () => {
     setCurrentImagePosition(
       pos => (pos - 1 + imageUrls.length) % imageUrls.length
     );
+    resetTimer();
+  };
 
   const handleNext = () =>
     setCurrentImagePosition(pos => (pos + 1) % imageUrls.length);
 
-  useEffect(() => {
-    const intervalId = setInterval(handleNext, 3000);
+  const resetTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(handleNext, 3000);
+  };
 
-    return () => clearInterval(intervalId);
+  useEffect(() => {
+    timerRef.current = setInterval(handleNext, 3000);
+
+    return () => clearInterval(timerRef.current);
   }, []);
 
   return (
@@ -39,7 +48,10 @@ const Carousel = ({ imageUrls, title }) => {
           className="flex-shrink-0 focus-within:ring-0 hover:bg-transparent"
           icon={Right}
           style="text"
-          onClick={handleNext}
+          onClick={() => {
+            handleNext();
+            resetTimer();
+          }}
         />
       </div>
       <div className="mt-2 flex items-center justify-center text-center">
@@ -50,7 +62,10 @@ const Carousel = ({ imageUrls, title }) => {
               "ml-3 h-3 w-3 cursor-pointer rounded-full border border-solid border-black",
               { "bg-black": currentImagePosition === idx }
             )}
-            onClick={() => setCurrentImagePosition(idx)}
+            onClick={() => {
+              setCurrentImagePosition(idx);
+              resetTimer();
+            }}
           />
         ))}
       </div>
