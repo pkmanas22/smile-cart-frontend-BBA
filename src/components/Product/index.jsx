@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
-import { LeftArrow } from "neetoicons";
-import { Spinner, Typography } from "neetoui";
+import { Header, PageLoader, PageNotFound } from "components/common";
+import { Typography } from "neetoui";
 import { append, isNotNil } from "ramda";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Carousel from "./Carousel";
-import PageNotFound from "./PageNotFound";
 
 const Product = () => {
   const [product, setProduct] = useState({});
@@ -15,7 +14,6 @@ const Product = () => {
   const [isError, setIsError] = useState(false);
 
   const { slug } = useParams();
-  const history = useHistory();
 
   const fetchProduct = async () => {
     try {
@@ -42,26 +40,11 @@ const Product = () => {
   const finalOfferPrice = (offerPrice / 100).toFixed(2);
   const discount = (((mrp - offerPrice) / offerPrice) * 100).toFixed(2);
 
-  if (loading) {
-    return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Spinner />
-      </div>
-    );
-  }
+  if (loading) return <PageLoader />;
 
   return (
     <div className="px-6 pb-6">
-      <div className="flex items-center gap-3">
-        <LeftArrow
-          className="cursor-pointer rounded-full"
-          onClick={history.goBack}
-        />
-        <Typography className="py-2 text-4xl font-semibold" style="h1">
-          {name}
-        </Typography>
-      </div>
-      <hr className="border-2 border-black" />
+      <Header shouldDisplayBackButton title={name} />
       <div className="mt-16 flex gap-4">
         <div className="w-2/5">
           <div className="flex justify-center gap-16">

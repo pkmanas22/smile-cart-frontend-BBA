@@ -1,18 +1,18 @@
-import PageNotFound from "components/PageNotFound";
+import PageNotFound from "components/common/PageNotFound";
 import Product from "components/Product";
 import ProductList from "components/ProductList";
-import { Route, Switch, NavLink, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 const App = () => (
   <>
-    <div className="flex space-x-2">
+    {/* <div className="flex space-x-2">
       <NavLink exact activeClassName="underline font-bold" to="/">
         Home
       </NavLink>
       <NavLink exact activeClassName="underline font-bold" to="/product">
         Product
       </NavLink>
-    </div>
+    </div> */}
     <Switch>
       <Route exact component={ProductList} path="/products" />
       <Route exact component={Product} path="/products/:slug" />

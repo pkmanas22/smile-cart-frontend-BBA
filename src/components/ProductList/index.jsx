@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
-import { Spinner, Typography } from "neetoui";
+import { Header, PageLoader } from "components/common";
 
 import ProductListItem from "./ProductListItem";
 
@@ -25,25 +25,12 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <Spinner />
-      </div>
-    );
-  }
-
-  console.log(products);
+  if (isLoading) return <PageLoader />;
 
   return (
-    <div className="flex flex-col">
-      <div className="m-2">
-        <Typography className="mx-6 mb-2 mt-6" style="h1" weight="semibold">
-          Smile Cart
-        </Typography>
-        <hr className="neeto-ui-bg-black h-1" />
-      </div>
-      <div className="m-auto grid grid-cols-2 justify-items-center gap-4 p-4 md:grid-cols-3 lg:grid-cols-4">
+    <div className="flex flex-col px-6 pb-6">
+      <Header title="Smile Cart" />
+      <div className="m-auto grid grid-cols-2 justify-items-center gap-4 p-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-12">
         {products.map(item => (
           <ProductListItem key={item.slug} {...item} />
         ))}
