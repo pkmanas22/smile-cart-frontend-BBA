@@ -1,20 +1,19 @@
 import { Typography } from "neetoui";
 
+import Carousel from "./Carousel";
+import { IMAGE_URLS } from "./constants";
+
 const Product = () => (
   <div className="px-6 pb-6">
     <div>
       <Typography className="py-2 text-4xl font-semibold" style="h1">
-        Infinix INBOOK
+        Infinix Inbook
       </Typography>
       <hr className="border-2 border-black" />
     </div>
     <div className="mt-6 flex gap-4">
       <div className="w-2/5">
-        <img
-          alt="Product"
-          className="h-64 w-10/12"
-          src="https://ik.imagekit.io/d9mvewbju/SmileCart/thumbnail_61_7PaLfb.jpg"
-        />
+        <Carousel imageUrls={IMAGE_URLS} title="Infinix Inbook" />
       </div>
       <div className="w-3/5 space-y-4">
         <Typography>
