@@ -12,9 +12,9 @@ const Product = () => {
 
   const fetchProduct = async () => {
     try {
-      const res = await productsApi.show();
-
-      setProduct(res.data);
+      const response = await productsApi.show();
+      console.log(response);
+      setProduct(response);
       setLoading(false);
     } catch (error) {
       console.log("Error while fetching product", error);
@@ -25,14 +25,7 @@ const Product = () => {
     fetchProduct();
   }, []);
 
-  const {
-    name,
-    description,
-    image_url: imageUrl,
-    image_urls: imageUrls,
-    mrp,
-    offer_price: offerPrice,
-  } = product;
+  const { name, description, imageUrl, imageUrls, mrp, offerPrice } = product;
 
   const finalMrp = (mrp / 100).toFixed(2);
   const finalOfferPrice = (offerPrice / 100).toFixed(2);
