@@ -1,0 +1,16 @@
+import { Link } from "react-router-dom";
+
+const ProductListItem = ({ name, offerPrice, imageUrl, slug }) => (
+  <Link
+    className="w-48 cursor-pointer space-y-3 rounded-md border border-solid border-black p-2 text-center"
+    to={`products/${slug}`}
+  >
+    <div>
+      <img alt={name} className="h-40 w-40" src={imageUrl} />
+    </div>
+    <div className="font-bold">{name}</div>
+    <div>${offerPrice}</div>
+  </Link>
+);
+
+export default ProductListItem;

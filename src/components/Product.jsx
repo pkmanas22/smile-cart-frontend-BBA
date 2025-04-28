@@ -1,29 +1,40 @@
 import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
+import { LeftArrow } from "neetoicons";
 import { Spinner, Typography } from "neetoui";
 import { append, isNotNil } from "ramda";
+import { useParams, useHistory } from "react-router-dom";
 
 import Carousel from "./Carousel";
+import PageNotFound from "./PageNotFound";
 
 const Product = () => {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  const { slug } = useParams();
+  const history = useHistory();
 
   const fetchProduct = async () => {
     try {
-      const response = await productsApi.show();
+      const response = await productsApi.show(slug);
       console.log(response);
       setProduct(response);
-      setLoading(false);
     } catch (error) {
       console.log("Error while fetching product", error);
+      setIsError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchProduct();
   }, []);
+
+  if (isError) return <PageNotFound />;
 
   const { name, description, imageUrl, imageUrls, mrp, offerPrice } = product;
 
@@ -41,12 +52,16 @@ const Product = () => {
 
   return (
     <div className="px-6 pb-6">
-      <div>
+      <div className="flex items-center gap-3">
+        <LeftArrow
+          className="cursor-pointer rounded-full"
+          onClick={history.goBack}
+        />
         <Typography className="py-2 text-4xl font-semibold" style="h1">
           {name}
         </Typography>
-        <hr className="border-2 border-black" />
       </div>
+      <hr className="border-2 border-black" />
       <div className="mt-16 flex gap-4">
         <div className="w-2/5">
           <div className="flex justify-center gap-16">
