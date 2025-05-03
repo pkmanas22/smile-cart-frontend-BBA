@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import routes from "routes";
+import { buildUrl } from "utils/url";
 
 const ProductListItem = ({ name, offerPrice, imageUrl, slug }) => (
   <Link
     className="w-48 cursor-pointer space-y-3 rounded-md border border-solid border-black p-2 text-center"
-    to={`products/${slug}`}
+    to={buildUrl(routes.products.show, { slug })}
   >
     <div>
       <img alt={name} className="h-40 w-40" src={imageUrl} />
