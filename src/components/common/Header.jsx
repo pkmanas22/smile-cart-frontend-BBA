@@ -1,8 +1,14 @@
 import { LeftArrow } from "neetoicons";
 import { Typography } from "neetoui";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 
-const Header = ({ title, shouldDisplayBackButton = false, searchAction }) => {
+const Header = ({
+  title,
+  shouldDisplayBackButton = false,
+  searchAction,
+  cartItemsCount,
+}) => {
   const history = useHistory();
 
   return (
@@ -19,9 +25,17 @@ const Header = ({ title, shouldDisplayBackButton = false, searchAction }) => {
             {title}
           </Typography>
         </div>
-        {!shouldDisplayBackButton && (
-          <div className="flex space-x-4">{searchAction}</div>
-        )}
+        <div className="flex items-center space-x-4">
+          {!shouldDisplayBackButton && searchAction}
+          <div className="relative">
+            {cartItemsCount > 0 && (
+              <span className=" absolute -right-2 -top-3 flex h-5 w-5 items-center justify-center  rounded-full border border-black p-1 text-center  font-bold">
+                {cartItemsCount}
+              </span>
+            )}
+            <AiOutlineShoppingCart className="h-7 w-7" />
+          </div>
+        </div>
       </div>
       <hr className="border-2 border-black" />
     </>
