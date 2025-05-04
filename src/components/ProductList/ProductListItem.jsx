@@ -1,16 +1,9 @@
-import AddToCart from "components/AddToCart";
+import { AddToCart } from "components/common";
 import { Link } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-const ProductListItem = ({
-  name,
-  offerPrice,
-  imageUrl,
-  slug,
-  isInCart,
-  toggleIsInCart,
-}) => (
+const ProductListItem = ({ name, offerPrice, imageUrl, slug }) => (
   <Link
     className="flex w-48 cursor-pointer flex-col justify-between rounded-md border border-solid border-black p-2 text-center"
     to={buildUrl(routes.products.show, { slug })}
@@ -21,7 +14,7 @@ const ProductListItem = ({
       <div>${offerPrice}</div>
     </div>
     <div className="mt-auto">
-      <AddToCart {...{ isInCart, toggleIsInCart }} />
+      <AddToCart {...{ slug }} />
     </div>
   </Link>
 );
