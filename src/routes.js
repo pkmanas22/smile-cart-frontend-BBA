@@ -4,6 +4,7 @@ const routes = {
     index: "/products",
     show: "/products/:slug", //  we should not store the template string `/products/${slug} here`
   },
+  cart: "/cart",
 };
 
 export default routes;
