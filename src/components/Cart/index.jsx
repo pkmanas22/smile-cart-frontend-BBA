@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
 import { Header, PageLoader } from "components/common";
+import { MRP, OFFER_PRICE } from "components/constants";
+import { cartTotalOf } from "components/utils";
 import { NoData, Toastr } from "neetoui";
 import { isEmpty, keys } from "ramda";
 import useCartItemsStore from "stores/useCartItemsStore";
 
+import PriceCard from "./PriceCard";
 import ProductCard from "./ProductCard";
 
 const Cart = () => {
@@ -15,13 +18,14 @@ const Cart = () => {
   const { cartItems, setSelectedQuantity } = useCartItemsStore();
 
   const slugs = keys(cartItems);
+  console.log(slugs);
 
   const fetchProducts = async () => {
     try {
       const responses = await Promise.all(
         slugs.map(slug => productsApi.show(slug))
       );
-      //   console.log(responses);
+      console.log(responses);
       setProducts(responses);
 
       responses.forEach(({ availableQuantity, name, slug }) => {
@@ -58,15 +62,23 @@ const Cart = () => {
     );
   }
 
+  const totalMrp = cartTotalOf(products, MRP);
+  const totalOfferPrice = cartTotalOf(products, OFFER_PRICE);
+
   return (
     <div className="px-6 pb-6">
       <Header title="My Cart" />;
       <div className="mt-10 flex justify-center space-x-10">
-        <div className="w-2/3 space-y-5">
+        <div className="w-2/4 space-y-5">
           {products.map(product => (
             <ProductCard key={product.slug} {...product} />
           ))}
         </div>
+        {totalMrp > 0 && (
+          <div className="w-1/4">
+            <PriceCard {...{ totalMrp, totalOfferPrice }} />
+          </div>
+        )}
       </div>
     </div>
   );
