@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-const ProductListItem = ({ name, offerPrice, imageUrl, slug }) => (
+const ProductListItem = ({
+  name,
+  offerPrice,
+  imageUrl,
+  slug,
+  availableQuantity,
+}) => (
   <Link
     className="flex w-48 cursor-pointer flex-col justify-between rounded-md border border-solid border-black p-2 text-center"
     to={buildUrl(routes.products.show, { slug })}
@@ -14,7 +20,7 @@ const ProductListItem = ({ name, offerPrice, imageUrl, slug }) => (
       <div>${offerPrice}</div>
     </div>
     <div className="mt-auto">
-      <AddToCart {...{ slug }} />
+      <AddToCart {...{ slug, availableQuantity }} />
     </div>
   </Link>
 );
