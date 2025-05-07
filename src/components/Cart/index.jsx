@@ -15,10 +15,11 @@ const Cart = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { cartItems, setSelectedQuantity } = useCartItemsStore();
+  // const { cartItems, setSelectedQuantity } = useCartItemsStore();
+  const { cartItems, setSelectedQuantity } = useCartItemsStore.pick();
 
   const slugs = keys(cartItems);
-  console.log(slugs);
+  // console.log(slugs);
 
   const fetchProducts = async () => {
     try {
