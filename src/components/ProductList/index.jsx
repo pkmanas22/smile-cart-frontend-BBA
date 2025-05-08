@@ -8,10 +8,11 @@ import { Input, NoData } from "neetoui";
 import { isEmpty, without } from "ramda";
 import { useTranslation } from "react-i18next";
 import CartItemsContext from "src/contexts/CartItemsContext";
+import withTitle from "utils/withTitle";
 
 import ProductListItem from "./ProductListItem";
 
-const Home = () => {
+const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchKey, setSearchKey] = useState("");
@@ -84,4 +85,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withTitle(ProductList);

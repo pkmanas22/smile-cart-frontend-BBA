@@ -4,10 +4,12 @@ import productsApi from "apis/products";
 import { Header, PageLoader } from "components/common";
 import { MRP, OFFER_PRICE } from "components/constants";
 import { cartTotalOf } from "components/utils";
+import { t } from "i18next";
 import { NoData, Toastr } from "neetoui";
 import { isEmpty, keys } from "ramda";
 import { useTranslation } from "react-i18next";
 import useCartItemsStore from "stores/useCartItemsStore";
+import withTitle from "utils/withTitle";
 
 import PriceCard from "./PriceCard";
 import ProductCard from "./ProductCard";
@@ -89,4 +91,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default withTitle(Cart, t("cart.title"));

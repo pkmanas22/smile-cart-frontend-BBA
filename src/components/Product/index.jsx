@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import productsApi from "apis/products";
 import { AddToCart, Header, PageLoader, PageNotFound } from "components/common";
 import useSelectedQuantity from "hooks/useSelectedQuantity";
+import { t } from "i18next";
 import { Button, Typography } from "neetoui";
 import { append, isNotNil } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import routes from "routes";
+import withTitle from "utils/withTitle";
 
 import Carousel from "./Carousel";
 
@@ -95,4 +97,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default withTitle(Product, t("product"));
