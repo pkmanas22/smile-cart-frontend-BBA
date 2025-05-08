@@ -33,5 +33,28 @@
   "pageNotFound": {
     "title": "The page you're looking for doesn't exist.",
     "button": "Back to home"
+  },
+  "checkout": "Checkout",
+  "contact": "Contact",
+  "shippingAddress": "Shipping Address",
+  "form": {
+    "email": "Email",
+    "emailPlaceholder": "Enter email",
+    "firstName": "First name",
+    "firstNamePlaceholder": "Enter first name",
+    "lastName": "Last name",
+    "lastNamePlaceholder": "Enter last name",
+    "address": "Address",
+    "addressPlaceholder": "Enter address",
+    "apartment": "Apartment",
+    "apartmentPlaceholder": "Enter apartment number",
+    "city": "City",
+    "cityPlaceholder": "Enter city",
+    "zipCode": "Zip code",
+    "zipCodePlaceholder": "Enter Zip code",
+    "country": "Country",
+    "countryPlaceholder": "Enter country",
+    "state": "State",
+    "statePlaceholder": "Enter state"
   }
 }
