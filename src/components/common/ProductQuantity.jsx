@@ -2,11 +2,12 @@ import React, { useRef } from "react";
 
 import { TooltipWrapper } from "components/common";
 import { VALID_COUNT_REGEX } from "components/constants";
+import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 import useSelectedQuantity from "hooks/useSelectedQuantity";
 import { Button, Input, Toastr } from "neetoui";
 import { useTranslation } from "react-i18next";
 
-const ProductQuantity = ({ slug, availableQuantity }) => {
+const ProductQuantity = ({ slug }) => {
   //   const [selectedQuantity, setSelectedQuantity] = useCartItemsStore(
   //     paths([["cartItems", slug], ["setSelectedQuantity"]]),
   //     shallow
@@ -20,6 +21,8 @@ const ProductQuantity = ({ slug, availableQuantity }) => {
     useSelectedQuantity(slug);
 
   const parsedQuantity = parseInt(selectedQuantity) || 0;
+
+  const { data: { availableQuantity } = {} } = useShowProduct(slug);
 
   const isNotValidQuantity = parsedQuantity >= availableQuantity;
 

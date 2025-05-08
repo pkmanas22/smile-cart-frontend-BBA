@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import ProductQuantity from "./ProductQuantity";
 
-const AddToCart = ({ slug, availableQuantity }) => {
+const AddToCart = ({ slug }) => {
   const { t } = useTranslation();
 
   // const [cartItems, setCartItems] = useContext(CartItemsContext);
@@ -46,6 +46,6 @@ const AddToCart = ({ slug, availableQuantity }) => {
     );
   }
 
-  return <ProductQuantity {...{ slug, availableQuantity }} />;
+  return <ProductQuantity {...{ slug }} />;
 };
 export default AddToCart;

@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-
-import productsApi from "apis/products";
 import { AddToCart, Header, PageLoader, PageNotFound } from "components/common";
+import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 import useSelectedQuantity from "hooks/useSelectedQuantity";
 import { t } from "i18next";
 import { Button, Typography } from "neetoui";
-import { append, isNotNil } from "ramda";
+import { isNotNil } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import routes from "routes";
@@ -14,50 +12,23 @@ import withTitle from "utils/withTitle";
 import Carousel from "./Carousel";
 
 const Product = () => {
-  const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
   const { t } = useTranslation();
 
   const { slug } = useParams();
 
   const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
 
-  const fetchProduct = async () => {
-    try {
-      const response = await productsApi.show(slug);
-      console.log(response);
-      setProduct(response);
-    } catch (error) {
-      console.log(t("error.genericError", { error }));
-      setIsError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProduct();
-  }, []);
+  const { data: product = {}, isLoading, isError } = useShowProduct(slug);
 
   if (isError) return <PageNotFound />;
 
-  const {
-    name,
-    description,
-    imageUrl,
-    imageUrls,
-    mrp,
-    offerPrice,
-    availableQuantity,
-  } = product;
+  const { name, description, imageUrl, imageUrls, mrp, offerPrice } = product;
 
   const finalMrp = (mrp / 100).toFixed(2);
   const finalOfferPrice = (offerPrice / 100).toFixed(2);
   const discount = (((mrp - offerPrice) / offerPrice) * 100).toFixed(2);
 
-  if (loading) return <PageLoader />;
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="px-6 pb-6">
@@ -66,7 +37,7 @@ const Product = () => {
         <div className="w-2/5">
           <div className="flex justify-center gap-16">
             {isNotNil(imageUrls) ? (
-              <Carousel imageUrls={append(imageUrl, imageUrls)} title={name} />
+              <Carousel />
             ) : (
               <img alt={name} className="w-48" src={imageUrl} />
             )}
@@ -82,7 +53,7 @@ const Product = () => {
             {t("discount", { discount })}
           </Typography>
           <div className="flex space-x-10">
-            <AddToCart {...{ availableQuantity, slug }} />
+            <AddToCart {...{ slug }} />
             <Button
               className="bg-neutral-800 hover:bg-neutral-950"
               label={t("buyNow")}
