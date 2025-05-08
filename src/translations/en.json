@@ -56,5 +56,16 @@
     "countryPlaceholder": "Enter country",
     "state": "State",
     "statePlaceholder": "Enter state"
+  },
+  "validations": {
+    "emailInvalid": "Invalid email address",
+    "emailRequired": "Email address is required",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "addressRequired": "Address is required",
+    "apartmentRequired": "Apartment is required",
+    "cityRequired": "City is required",
+    "stateRequired": "State is required",
+    "zipCodeRequired": "Zip code is required"
   }
 }
