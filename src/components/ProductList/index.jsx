@@ -6,6 +6,7 @@ import useDebounce from "hooks/useDebounce";
 import { Search } from "neetoicons";
 import { Input, NoData } from "neetoui";
 import { isEmpty, without } from "ramda";
+import { useTranslation } from "react-i18next";
 import CartItemsContext from "src/contexts/CartItemsContext";
 
 import ProductListItem from "./ProductListItem";
@@ -14,6 +15,8 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchKey, setSearchKey] = useState("");
+
+  const { t } = useTranslation();
 
   const debouncedSearchKey = useDebounce(searchKey);
 
@@ -27,7 +30,7 @@ const Home = () => {
       // console.log(products);
       setProducts(products);
     } catch (error) {
-      console.log("Error while fetching all products", error);
+      console.log(t("error.genericError", { error }));
     } finally {
       setIsLoading(false);
     }
@@ -52,10 +55,10 @@ const Home = () => {
       <Header
         cartItemsCount={cartItems.length}
         shouldDisplayBackButton={false}
-        title="Smile Cart"
+        title={t("title")}
         searchAction={
           <Input
-            placeholder="Search Products"
+            placeholder={t("searchProducts")}
             prefix={<Search />}
             type="search"
             value={searchKey}
@@ -64,7 +67,7 @@ const Home = () => {
         }
       />
       {isEmpty(products) ? (
-        <NoData className="h-full w-full" title="No products to show" />
+        <NoData className="h-full w-full" title={t("noData")} />
       ) : (
         <div className="m-auto grid grid-cols-2 justify-items-center gap-4 p-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-12">
           {products.map(item => (
