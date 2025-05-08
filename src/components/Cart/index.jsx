@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-
-import productsApi from "apis/products";
 import { Header, PageLoader } from "components/common";
 import { MRP, OFFER_PRICE } from "components/constants";
 import { cartTotalOf } from "components/utils";
+import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
 import { t } from "i18next";
-import { NoData, Toastr } from "neetoui";
+import { NoData } from "neetoui";
 import { isEmpty, keys } from "ramda";
 import { useTranslation } from "react-i18next";
 import useCartItemsStore from "stores/useCartItemsStore";
@@ -15,46 +13,14 @@ import PriceCard from "./PriceCard";
 import ProductCard from "./ProductCard";
 
 const Cart = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const { t } = useTranslation();
 
   // const { cartItems, setSelectedQuantity } = useCartItemsStore();
-  const { cartItems, setSelectedQuantity } = useCartItemsStore.pick();
 
-  const slugs = keys(cartItems);
+  const slugs = useCartItemsStore(store => keys(store.cartItems));
   // console.log(slugs);
 
-  const fetchProducts = async () => {
-    try {
-      const responses = await Promise.all(
-        slugs.map(slug => productsApi.show(slug))
-      );
-      console.log(responses);
-      setProducts(responses);
-
-      responses.forEach(({ availableQuantity, name, slug }) => {
-        if (availableQuantity >= cartItems[slug]) return;
-        setSelectedQuantity(slug, availableQuantity);
-        if (availableQuantity === 0) {
-          Toastr.error(
-            // `${name} is no longer available and has been removed from cart`,
-            t("error.removeCartItem", { name }),
-            { autoClose: 2000 }
-          );
-        }
-      });
-    } catch (error) {
-      console.log(t("error.genericError", { error }));
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, [cartItems]);
+  const { data: products = [], isLoading } = useFetchCartProducts(slugs);
 
   if (isLoading) return <PageLoader />;
 
