@@ -5,6 +5,7 @@
   "searchProducts": "Search products",
   "addToCart": "Add to Cart",
   "buyNow": "Buy Now",
+  "confirmOrder": "Confirm order",
   "noData": "No products to show",
   "mrp": "MRP: {{mrp}}",
   "offerPrice": "Offer price: {{offerPrice}}",
@@ -24,7 +25,9 @@
     "genericError": "An error occurred, {{error}}",
     "quantityLimit_one": "Only 1 unit is available",
     "quantityLimit_other": "Only {{quantity}} units are available",
-    "maximumUnitTooltip": "Reached maximum units"
+    "maximumUnitTooltip": "Reached maximum units",
+    "noInternetConnection": "No Internet Connection",
+    "networkError": "Network Error"
   },
   "cart": {
     "title": "My Cart",
@@ -67,5 +70,8 @@
     "cityRequired": "City is required",
     "stateRequired": "State is required",
     "zipCodeRequired": "Zip code is required"
+  },
+  "order": {
+    "successfullyPlaced": "Order has been successfully placed"
   }
 }
