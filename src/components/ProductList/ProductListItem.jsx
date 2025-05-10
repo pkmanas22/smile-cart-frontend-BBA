@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { AddToCart } from "components/common";
 import { Link } from "react-router-dom";
 import routes from "routes";
@@ -19,4 +21,4 @@ const ProductListItem = ({ name, offerPrice, imageUrl, slug }) => (
   </Link>
 );
 
-export default ProductListItem;
+export default memo(ProductListItem);
