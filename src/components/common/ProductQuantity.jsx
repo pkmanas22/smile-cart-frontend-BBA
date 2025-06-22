@@ -43,7 +43,7 @@ const ProductQuantity = ({ slug, name }) => {
       });
       updateSelectedQuantity(availableQuantity);
       countInputRef.current.blur();
-    } else if (VALID_COUNT_REGEX.test(value)) {
+    } else if (VALID_COUNT_REGEX.test(value) && value !== "") {
       updateSelectedQuantity(value);
     }
   };
