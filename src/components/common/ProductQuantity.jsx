@@ -4,7 +4,7 @@ import { TooltipWrapper } from "components/common";
 import { VALID_COUNT_REGEX } from "components/constants";
 import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 import useSelectedQuantity from "hooks/useSelectedQuantity";
-import { Alert, Button, Input, Toastr, Typography } from "neetoui";
+import { Alert, Button, Input, Toastr } from "neetoui";
 import { Trans, useTranslation } from "react-i18next";
 
 const ProductQuantity = ({ slug, name }) => {
@@ -69,13 +69,11 @@ const ProductQuantity = ({ slug, name }) => {
         submitButtonLabel={t("removeItemConfirmation.button")}
         title={t("removeItemConfirmation.title")}
         message={
-          <Typography>
-            <Trans
-              components={{ typography: <strong /> }}
-              i18nKey="removeItemConfirmation.message"
-              values={{ name }}
-            />
-          </Typography>
+          <Trans
+            components={{ typography: <strong /> }}
+            i18nKey="removeItemConfirmation.message"
+            values={{ name }}
+          />
         }
         onClose={() => setShouldShowDeleteAlert(false)}
         onSubmit={() => {

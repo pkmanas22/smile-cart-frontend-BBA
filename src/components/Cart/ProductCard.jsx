@@ -36,13 +36,11 @@ const ProductCard = ({ slug, imageUrl, offerPrice, mrp, name }) => {
             submitButtonLabel={t("removeItemConfirmation.button")}
             title={t("removeItemConfirmation.title")}
             message={
-              <Typography>
-                <Trans
-                  components={{ typography: <strong /> }}
-                  i18nKey="removeItemConfirmation.message"
-                  values={{ name }}
-                />
-              </Typography>
+              <Trans
+                components={{ typography: <strong /> }}
+                i18nKey="removeItemConfirmation.message"
+                values={{ name }}
+              />
             }
             onClose={() => setShouldShowDeleteAlert(false)}
             onSubmit={() => {

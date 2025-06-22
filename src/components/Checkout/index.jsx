@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { PageLoader } from "components/common";
 import {
@@ -86,9 +86,13 @@ const Checkout = () => {
     );
   };
 
-  if (isLoading) return <PageLoader />;
+  useEffect(() => {
+    if (isEmpty(cartItems)) {
+      history.push(routes.root);
+    }
+  }, [cartItems, history]);
 
-  if (isEmpty(cartItems)) return history.push(routes.root);
+  if (isLoading) return <PageLoader />;
 
   return (
     <NeetoUIForm
