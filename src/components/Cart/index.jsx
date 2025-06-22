@@ -27,7 +27,7 @@ const Cart = () => {
   if (isEmpty(products)) {
     return (
       <div className="px-6 pb-6">
-        <Header title={t("cart.title")} />
+        <Header shouldDisplayBackButton title={t("cart.title")} />
         <div className="flex h-screen items-center justify-center">
           <NoData title={t("cart.empty")} />
         </div>
@@ -40,7 +40,7 @@ const Cart = () => {
 
   return (
     <div className="px-6 pb-6">
-      <Header title={t("cart.title")} />
+      <Header shouldDisplayBackButton title={t("cart.title")} />
       <div className="mt-10 flex justify-center space-x-10">
         <div className="w-2/4 space-y-5">
           {products.map(product => (

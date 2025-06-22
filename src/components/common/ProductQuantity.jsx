@@ -56,7 +56,6 @@ const ProductQuantity = ({ slug, name }) => {
         style="text"
         onClick={e => {
           preventNavigation(e);
-          console.log(parsedQuantity);
           if (name && parsedQuantity === 1) {
             setShouldShowDeleteAlert(true);
 
