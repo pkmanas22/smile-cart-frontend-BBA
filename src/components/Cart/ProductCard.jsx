@@ -26,7 +26,7 @@ const ProductCard = ({ slug, imageUrl, offerPrice, mrp, name }) => {
           {t("offerPrice", { offerPrice })}
         </div>
         <div className="flex items-center space-x-2">
-          <ProductQuantity {...{ slug }} />
+          <ProductQuantity {...{ slug, name }} />
           <Delete
             className="cursor-pointer"
             onClick={() => setShouldShowDeleteAlert(true)}

@@ -1,17 +1,19 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import { TooltipWrapper } from "components/common";
 import { VALID_COUNT_REGEX } from "components/constants";
 import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 import useSelectedQuantity from "hooks/useSelectedQuantity";
-import { Button, Input, Toastr } from "neetoui";
-import { useTranslation } from "react-i18next";
+import { Alert, Button, Input, Toastr, Typography } from "neetoui";
+import { Trans, useTranslation } from "react-i18next";
 
-const ProductQuantity = ({ slug }) => {
+const ProductQuantity = ({ slug, name }) => {
   //   const [selectedQuantity, setSelectedQuantity] = useCartItemsStore(
   //     paths([["cartItems", slug], ["setSelectedQuantity"]]),
   //     shallow
   //   );
+
+  const [shouldShowDeleteAlert, setShouldShowDeleteAlert] = useState(false);
 
   const countInputRef = useRef();
 
@@ -54,7 +56,32 @@ const ProductQuantity = ({ slug }) => {
         style="text"
         onClick={e => {
           preventNavigation(e);
+          console.log(parsedQuantity);
+          if (name && parsedQuantity === 1) {
+            setShouldShowDeleteAlert(true);
+
+            return;
+          }
           updateSelectedQuantity(parsedQuantity - 1);
+        }}
+      />
+      <Alert
+        isOpen={name && shouldShowDeleteAlert}
+        submitButtonLabel={t("removeItemConfirmation.button")}
+        title={t("removeItemConfirmation.title")}
+        message={
+          <Typography>
+            <Trans
+              components={{ typography: <strong /> }}
+              i18nKey="removeItemConfirmation.message"
+              values={{ name }}
+            />
+          </Typography>
+        }
+        onClose={() => setShouldShowDeleteAlert(false)}
+        onSubmit={() => {
+          updateSelectedQuantity(parsedQuantity - 1);
+          setShouldShowDeleteAlert(false);
         }}
       />
       <Input
