@@ -8,7 +8,7 @@ import {
 import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
 import i18n from "i18next";
 import { LeftArrow } from "neetoicons";
-import { Checkbox, Typography } from "neetoui";
+import { Checkbox, Toastr, Typography } from "neetoui";
 import { Form as NeetoUIForm } from "neetoui/formik";
 import { isEmpty, keys } from "ramda";
 import { useTranslation } from "react-i18next";
@@ -73,11 +73,15 @@ const Checkout = () => {
     createOrder(
       { payload: values },
       {
-        onSuccess: () => {
+        onSuccess: data => {
+          Toastr.success(t(data?.noticeCode));
           setToLocalStorage(CHECKOUT_LOCAL_STORAGE_KEY, dataToPersist);
           redirectToHome();
         },
-        onError: () => setIsSubmitDisabled(false),
+        onError: () => {
+          Toastr.error(t("error.internalError"));
+          setIsSubmitDisabled(false);
+        },
       }
     );
   };

@@ -27,7 +27,8 @@
     "quantityLimit_other": "Only {{count}} units are available",
     "maximumUnitTooltip": "Reached maximum units",
     "noInternetConnection": "No Internet Connection",
-    "networkError": "Network Error"
+    "networkError": "Network Error",
+    "internalError": "Something went wrong, kindly try again"
   },
   "cart": {
     "title": "My Cart",
