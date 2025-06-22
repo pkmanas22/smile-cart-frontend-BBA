@@ -16,10 +16,11 @@ export const useFetchCountries = () =>
 
 export const useFetchStates = stateParams =>
   useQuery({
-    queryKey: QUERY_KEYS.STATES,
+    queryKey: [QUERY_KEYS.STATES, stateParams],
     queryFn: () => stateApi.fetch(stateParams),
     select: prop("states"),
     staleTime: Infinity,
+    enabled: !!stateParams?.countryCode,
   });
 
 export const useCreateOrder = () => useMutation(ordersApi.create);

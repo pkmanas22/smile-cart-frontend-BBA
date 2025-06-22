@@ -92,7 +92,6 @@ const Checkout = () => {
 
   return (
     <NeetoUIForm
-      className="pb-6"
       formProps={{ noValidate: true }}
       formikProps={{
         initialValues: checkoutFormData || CHECKOUT_FORM_INITIAL_VALUES,
@@ -101,7 +100,7 @@ const Checkout = () => {
       }}
     >
       <div className="flex space-x-4">
-        <div className="m-10 w-1/2">
+        <div className="m-10 w-1/2 p-6">
           <div className="flex items-center">
             <LeftArrow
               className="hover:neeto-ui-bg-gray-400 neeto-ui-rounded-full mr-4"

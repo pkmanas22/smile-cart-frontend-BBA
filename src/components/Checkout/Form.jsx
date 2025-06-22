@@ -1,3 +1,5 @@
+import { QUERY_KEYS } from "constants/query";
+
 import { useFormikContext } from "formik";
 import {
   useFetchCountries,
@@ -6,6 +8,7 @@ import {
 import { Typography } from "neetoui";
 import { Input, Select } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
+import queryClient from "utils/queryClient";
 
 const Form = () => {
   const { t } = useTranslation();
@@ -21,6 +24,7 @@ const Form = () => {
   });
 
   const handleChangeCountry = country => {
+    queryClient.invalidateQueries(QUERY_KEYS.STATES);
     setFieldValue("country", country);
     setFieldValue("state", null);
   };
@@ -97,6 +101,7 @@ const Form = () => {
           options={states}
           placeholder={t("form.statePlaceholder")}
           size="large"
+          strategy="fixed"
         />
         <Input
           required
