@@ -38,7 +38,7 @@ const ProductQuantity = ({ slug, name }) => {
     const isNotValidInputQuantity = parseInt(value) > availableQuantity;
 
     if (isNotValidInputQuantity) {
-      Toastr.error(t("error.quantityLimit", { quantity: availableQuantity }), {
+      Toastr.error(t("error.quantityLimit", { count: availableQuantity }), {
         autoClose: 2000,
       });
       updateSelectedQuantity(availableQuantity);
