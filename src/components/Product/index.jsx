@@ -24,8 +24,6 @@ const Product = () => {
 
   const { name, description, imageUrl, imageUrls, mrp, offerPrice } = product;
 
-  const finalMrp = (mrp / 100).toFixed(2);
-  const finalOfferPrice = (offerPrice / 100).toFixed(2);
   const discount = (((mrp - offerPrice) / offerPrice) * 100).toFixed(2);
 
   if (isLoading) return <PageLoader />;
@@ -45,9 +43,9 @@ const Product = () => {
         </div>
         <div className="w-3/5 space-y-4">
           <Typography>{description}</Typography>
-          <Typography>{t("mrp", { mrp: finalMrp })}</Typography>
+          <Typography>{t("mrp", { mrp })}</Typography>
           <Typography className="font-semibold">
-            {t("offerPrice", { offerPrice: finalOfferPrice })}
+            {t("offerPrice", { offerPrice })}
           </Typography>
           <Typography className="font-semibold text-green-600">
             {t("discount", { discount })}
