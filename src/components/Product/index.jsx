@@ -59,7 +59,7 @@ const Product = () => {
               label={t("buyNow")}
               size="large"
               to={routes.checkout}
-              onClick={() => setSelectedQuantity(slug, selectedQuantity || 1)}
+              onClick={() => setSelectedQuantity(selectedQuantity || 1)}
             />
           </div>
         </div>

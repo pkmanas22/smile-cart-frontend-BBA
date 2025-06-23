@@ -19,8 +19,7 @@ const ProductQuantity = ({ slug, name }) => {
 
   const { t } = useTranslation();
 
-  const { selectedQuantity, updateSelectedQuantity } =
-    useSelectedQuantity(slug);
+  const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
 
   const parsedQuantity = parseInt(selectedQuantity) || 0;
 
@@ -35,16 +34,17 @@ const ProductQuantity = ({ slug, name }) => {
 
   const handleSetCount = e => {
     const { value } = e.target;
+
     const isNotValidInputQuantity = parseInt(value) > availableQuantity;
 
     if (isNotValidInputQuantity) {
       Toastr.error(t("error.quantityLimit", { count: availableQuantity }), {
         autoClose: 2000,
       });
-      updateSelectedQuantity(availableQuantity);
+      setSelectedQuantity(availableQuantity);
       countInputRef.current.blur();
-    } else if (VALID_COUNT_REGEX.test(value) && value !== "") {
-      updateSelectedQuantity(value);
+    } else if (VALID_COUNT_REGEX.test(value)) {
+      setSelectedQuantity(value);
     }
   };
 
@@ -61,7 +61,7 @@ const ProductQuantity = ({ slug, name }) => {
 
             return;
           }
-          updateSelectedQuantity(parsedQuantity - 1);
+          setSelectedQuantity(parsedQuantity - 1);
         }}
       />
       <Alert
@@ -77,7 +77,7 @@ const ProductQuantity = ({ slug, name }) => {
         }
         onClose={() => setShouldShowDeleteAlert(false)}
         onSubmit={() => {
-          updateSelectedQuantity(parsedQuantity - 1);
+          setSelectedQuantity(parsedQuantity - 1);
           setShouldShowDeleteAlert(false);
         }}
       />
@@ -102,7 +102,7 @@ const ProductQuantity = ({ slug, name }) => {
           style="text"
           onClick={e => {
             preventNavigation(e);
-            updateSelectedQuantity(parsedQuantity + 1);
+            setSelectedQuantity(parsedQuantity + 1);
           }}
         />
       </TooltipWrapper>

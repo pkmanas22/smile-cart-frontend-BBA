@@ -23,8 +23,7 @@ const AddToCart = ({ slug }) => {
   //   shallow
   // );
 
-  const { selectedQuantity, updateSelectedQuantity } =
-    useSelectedQuantity(slug);
+  const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
 
   const handleClick = e => {
     e.preventDefault();
@@ -37,7 +36,7 @@ const AddToCart = ({ slug }) => {
 
     // toggleIsInCart(slug);
 
-    updateSelectedQuantity(1);
+    setSelectedQuantity(1);
   };
 
   if (isNil(selectedQuantity)) {
